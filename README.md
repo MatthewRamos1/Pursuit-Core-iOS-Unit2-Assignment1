@@ -10,7 +10,7 @@
 1. Paste a link of your Fork on Canvas and submit
 
 ## Tic Tac Toe: Player vs. Player
-### Exercise
+### Exercise:
 
 For this assignment, you will be bringing Tic Tac Toe to life on your own.
 
