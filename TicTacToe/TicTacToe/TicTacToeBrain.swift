@@ -35,17 +35,21 @@ class TicTacToe {
         columnsAndRows.append(sameRowArray)
     }
     
-    func gameStatus (_ input: [[GameButton]],_ sender: GameButton) {
+    func gameStatus (_ input: [[GameButton]], _ sender: GameButton) {
         
         for array in input {
             var xCounter = 0
             var circleCounter = 0
             for button in array {
+                if sender.row == button.row && sender.col == button.col {
+                    button.xMark = sender.xMark
+                    button.circleMark = sender.circleMark
+                }
                 if button.xMark == true {
                     xCounter += 1
                     
                 } else if button.circleMark == true {
-                circleCounter += 1
+                    circleCounter += 1
                     
                 }
                 
@@ -55,7 +59,18 @@ class TicTacToe {
                 
             } else if circleCounter == 3 {
                 self.circleWin = true
+            }
         }
     }
-}
+    
+    func gameReset () {
+        for array in self.columnsAndRows {
+            for button in array {
+                button.xMark = false
+                button.circleMark = false
+            }
+        }
+        self.circleWin = false
+        self.xWin = false
+    }
 }

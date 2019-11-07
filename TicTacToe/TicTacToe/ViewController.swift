@@ -33,13 +33,21 @@ class ViewController: UIViewController {
         if #available(iOS 13.0, *) {
             if playerStatus.text == "Player 1's Turn" {
                 sender.setBackgroundImage(UIImage(systemName: "xmark"), for: .normal)
-                sender.xMark = false
+                sender.xMark = true
+                game.gameStatus(game.columnsAndRows, sender)
                 playerStatus.text = "Player 2's Turn"
+                
             } else {
                 sender.setBackgroundImage(UIImage(systemName: "circle"), for: .normal)
                 sender.circleMark = true
+                game.gameStatus(game.columnsAndRows, sender)
                 playerStatus.text = "Player 1's Turn"
         }
+            if game.xWin == true {
+                playerStatus.text = "Player 1 Wins!"
+            } else if game.circleWin == true {
+                playerStatus.text = "Player 2 Wins!"
+            }
     }
     }
     
@@ -47,6 +55,7 @@ class ViewController: UIViewController {
         for button in gameButtons {
             button.setBackgroundImage(nil, for: .normal)
         }
+        game.gameReset()
         playerStatus.text = "Player 1's Turn"
     }
     
