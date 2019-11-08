@@ -28,12 +28,9 @@ class ViewController: UIViewController {
     
   override func viewDidLoad() {
     super.viewDidLoad()
-    for num in 0...2 {
-        game.buttonSorting(gameButtons, num)
-    }
+    game.buttonSorting(gameButtons)
     game.diagonalSorting(gameButtons)
-  }
-    
+    }
 
     
     @IBAction func gameButtonPressed(_ sender: GameButton) {

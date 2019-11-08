@@ -17,21 +17,21 @@ class TicTacToe {
     var circleWin = false
     var tie = false
     
-    func buttonSorting (_ input: [GameButton],_ line: Int){
+    func buttonSorting (_ input: [GameButton]){
+        for num in 0...2 {
         var sameColumnArray: [GameButton] = []
         var sameRowArray: [GameButton] = []
-        for button in input {
-            if button.col == line {
+            for button in input {
+                if button.col == num {
                 sameColumnArray.append(button)
-            }
-            if button.row == line {
+                }
+                if button.row == num {
                 sameRowArray.append(button)
-            }
-        }
+                }
+                }
         winningRows.append(sameColumnArray)
         winningRows.append(sameRowArray)
-        
-        
+        }
     }
     func diagonalSorting( _ input: [GameButton]) {
         var diagonalArray: [GameButton] = []
