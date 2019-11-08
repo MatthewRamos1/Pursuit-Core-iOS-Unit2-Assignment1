@@ -41,13 +41,13 @@ class ViewController: UIViewController {
             if playerStatus.text == "Player 1's Turn" {
                 sender.setBackgroundImage(UIImage(systemName: "xmark"), for: .normal)
                 sender.xMark = true
-                game.gameStatus(game.winning, sender, gameButtons)
+                game.gameStatus(game.winningRows, sender, gameButtons)
                 playerStatus.text = "Player 2's Turn"
                 
             } else {
                 sender.setBackgroundImage(UIImage(systemName: "circle"), for: .normal)
                 sender.circleMark = true
-                game.gameStatus(game.winning, sender, gameButtons)
+                game.gameStatus(game.winningRows, sender, gameButtons)
                 playerStatus.text = "Player 1's Turn"
         }
             if game.xWin == true {

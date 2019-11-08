@@ -11,7 +11,7 @@ import UIKit
 
 class TicTacToe {
     
-    var columnsAndRows = [[GameButton]]()
+    var winningRows = [[GameButton]]()
     
     var xWin = false
     var circleWin = false
@@ -28,8 +28,10 @@ class TicTacToe {
                 sameRowArray.append(button)
             }
         }
-        columnsAndRows.append(sameColumnArray)
-        columnsAndRows.append(sameRowArray)
+        winningRows.append(sameColumnArray)
+        winningRows.append(sameRowArray)
+        
+        
     }
     func diagonalSorting( _ input: [GameButton]) {
         var diagonalArray: [GameButton] = []
@@ -42,8 +44,8 @@ class TicTacToe {
                 diagonalArray2.append(button)
             }
         }
-        columnsAndRows.append(diagonalArray)
-        columnsAndRows.append(diagonalArray2)
+        winningRows.append(diagonalArray)
+        winningRows.append(diagonalArray2)
     }
     
     func gameStatus (_ input: [[GameButton]], _ sender: GameButton, _ board: [GameButton]) {
@@ -81,7 +83,7 @@ class TicTacToe {
     
     }
     func gameReset () {
-        for array in self.columnsAndRows {
+        for array in self.winningRows {
             for button in array {
                 button.xMark = false
                 button.circleMark = false
