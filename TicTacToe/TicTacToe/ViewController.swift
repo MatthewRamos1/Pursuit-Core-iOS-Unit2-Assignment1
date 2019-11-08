@@ -16,15 +16,22 @@ class ViewController: UIViewController {
     
     let game = TicTacToe()
     
+    var gameRunning = true {
+        didSet {
+            for button in gameButtons {
+                button.isEnabled = gameRunning
+            }
+        }
+    }
+    
    
     
   override func viewDidLoad() {
     super.viewDidLoad()
     for num in 0...2 {
-        game.colButtonSorting(gameButtons, num)
-        game.rowButtonSorting(gameButtons, num)
+        game.buttonSorting(gameButtons, num)
     }
-    
+    game.diagonalSorting(gameButtons)
   }
     
 
@@ -34,19 +41,24 @@ class ViewController: UIViewController {
             if playerStatus.text == "Player 1's Turn" {
                 sender.setBackgroundImage(UIImage(systemName: "xmark"), for: .normal)
                 sender.xMark = true
-                game.gameStatus(game.columnsAndRows, sender)
+                game.gameStatus(game.winning, sender, gameButtons)
                 playerStatus.text = "Player 2's Turn"
                 
             } else {
                 sender.setBackgroundImage(UIImage(systemName: "circle"), for: .normal)
                 sender.circleMark = true
-                game.gameStatus(game.columnsAndRows, sender)
+                game.gameStatus(game.winning, sender, gameButtons)
                 playerStatus.text = "Player 1's Turn"
         }
             if game.xWin == true {
                 playerStatus.text = "Player 1 Wins!"
+                gameRunning = false
             } else if game.circleWin == true {
                 playerStatus.text = "Player 2 Wins!"
+                gameRunning = false
+            } else if game.tie == true {
+                playerStatus.text = "Tie!"
+                gameRunning = false
             }
     }
     }
@@ -56,7 +68,9 @@ class ViewController: UIViewController {
             button.setBackgroundImage(nil, for: .normal)
         }
         game.gameReset()
+        gameRunning = true
         playerStatus.text = "Player 1's Turn"
+    
     }
     
     

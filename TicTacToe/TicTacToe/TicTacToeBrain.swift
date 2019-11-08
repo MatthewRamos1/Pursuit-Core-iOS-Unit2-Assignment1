@@ -15,54 +15,71 @@ class TicTacToe {
     
     var xWin = false
     var circleWin = false
-    func colButtonSorting (_ input: [GameButton],_ column: Int){
-        var sameColumnArray: [GameButton] = []
-        for button in input {
-            if button.col == column {
-                sameColumnArray.append(button)
-            }
-        }
-        columnsAndRows.append(sameColumnArray)
-    }
+    var tie = false
     
-    func rowButtonSorting (_ input: [GameButton],_ row: Int){
+    func buttonSorting (_ input: [GameButton],_ line: Int){
+        var sameColumnArray: [GameButton] = []
         var sameRowArray: [GameButton] = []
         for button in input {
-            if button.row == row {
+            if button.col == line {
+                sameColumnArray.append(button)
+            }
+            if button.row == line {
                 sameRowArray.append(button)
             }
         }
+        columnsAndRows.append(sameColumnArray)
         columnsAndRows.append(sameRowArray)
     }
+    func diagonalSorting( _ input: [GameButton]) {
+        var diagonalArray: [GameButton] = []
+        var diagonalArray2: [GameButton] = []
+        for button in input {
+            if button.tag == 2 || button.tag == 4 || button.tag == 6 {
+                diagonalArray.append(button)
+            }
+            if button.tag == 0 || button.tag == 4 || button.tag == 8 {
+                diagonalArray2.append(button)
+            }
+        }
+        columnsAndRows.append(diagonalArray)
+        columnsAndRows.append(diagonalArray2)
+    }
     
-    func gameStatus (_ input: [[GameButton]], _ sender: GameButton) {
-        
+    func gameStatus (_ input: [[GameButton]], _ sender: GameButton, _ board: [GameButton]) {
+        var playCounter = 0
         for array in input {
             var xCounter = 0
             var circleCounter = 0
             for button in array {
-                if sender.row == button.row && sender.col == button.col {
+                if sender.tag == button.tag {
                     button.xMark = sender.xMark
                     button.circleMark = sender.circleMark
                 }
-                if button.xMark == true {
+                if button.xMark {
                     xCounter += 1
                     
-                } else if button.circleMark == true {
+                } else if button.circleMark {
                     circleCounter += 1
-                    
                 }
-                
             }
             if xCounter == 3 {
-                self.xWin = true
+                xWin = true
                 
             } else if circleCounter == 3 {
-                self.circleWin = true
+                circleWin = true
             }
         }
-    }
+        for button in board {
+            if button.xMark || button.circleMark {
+                playCounter += 1
+            }
+            if playCounter == 9 {
+                tie = true
+            }
+        }
     
+    }
     func gameReset () {
         for array in self.columnsAndRows {
             for button in array {
@@ -70,7 +87,8 @@ class TicTacToe {
                 button.circleMark = false
             }
         }
-        self.circleWin = false
-        self.xWin = false
+        circleWin = false
+        xWin = false
+        tie = false
     }
 }
